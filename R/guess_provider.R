@@ -1,49 +1,21 @@
-#
-# Helper functions below
-#
 
-# .CRAN ------------------------------------------------------------------------
-## cache available packages
-.CRAN <- function(verbose = FALSE) {
-
-  if (verbose) {
-    cli::cat_bullet("Getting CRAN metadata from RStudio CRAN mirror",
-                    bullet = "continue")
-  }
+## FIXME create local cache
+CRAN <- function() {
 
   data <- suppressWarnings(
     available_source_packages("https://cran.rstudio.com"))
 
-  if (verbose) {
-    cli::cat_bullet("Got CRAN metadata!", bullet = "tick")
-  }
-
   return(data)
 }
 
-# .BIOC ------------------------------------------------------------------------
-.BIOC <- function(verbose = FALSE) {
-  if (verbose) {
-    cli::cat_bullet("Getting Bioconductor metadata",
-                    bullet = "continue")
-  }
+BIOC <- function() {
 
   data <- suppressWarnings(
     available_source_packages("https://www.bioconductor.org/packages/release/bioc"))
 
-
-  if (verbose) {
-    cli::cat_bullet("Got Bioconductor metadata!", bullet = "tick")
-  }
-
   return(data)
 }
 
-# CRAN -------------------------------------------------------------------------
-CRAN <- memoise::memoise(.CRAN)
-
-# BIOC -------------------------------------------------------------------------
-BIOC <- memoise::memoise(.BIOC)
 
 # guess_provider ---------------------------------------------------------------
 guess_provider <- function(pkg, verbose = FALSE) {
@@ -87,13 +59,13 @@ available_source_packages <- function(url) {
 # is_cran_package --------------------------------------------------------------
 is_cran_package <- function(pkg, verbose = FALSE) {
 
-  is_in_package_info(pkg, CRAN(verbose))
+  is_in_package_info(pkg, CRAN())
 }
 
 # is_bioconductor_package ------------------------------------------------------
 is_bioconductor_package <- function(pkg, verbose = FALSE) {
 
-  is_in_package_info(pkg, BIOC(verbose))
+  is_in_package_info(pkg, BIOC())
 }
 
 # is_in_package_info -----------------------------------------------------------

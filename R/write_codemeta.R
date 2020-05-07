@@ -1,30 +1,28 @@
 
-#' create_codemeta
+#' write_codemeta
 #'
-#' create a codemeta list object in R for further manipulation. Similar
-#' to [write_codemeta()], but returns an R list object rather
-#' than writing directly to a file.  See examples.
-#'
-#' @inheritParams write_codemeta
-#' @return a codemeta list object
+#' @param path path to the package root
+#' @param id identifier for the package (e.g. a DOI, as URL)
+#' @param file output file location, should be called `codemeta.json`. Set to NULL to supress writing file.
+#' @return a codemeta list object (invisbly) and write out the codemeta.json file
 #' @export
 #' @examples
-#' \donttest{
-#' create_codemeta(".")
+#' \dontrun{
+#' write_codemeta()
 #' }
 #' @importFrom jsonlite read_json
-write_codemeta <- function(path = ".", id = NULL, file = "codemeta.json", verbose = TRUE){
+write_codemeta <- function(path = ".", id = NULL, file = "codemeta.json"){
 
   ## get information from DESCRIPTION
-  cm <- codemeta_description(file.path(path, "DESCRIPTION"),
-                             id = id,
-                             verbose = verbose)
-
-
-  cm$releaseNotes <- guess_releaseNotes(path, cm)
+  descr <- file.path(path, "DESCRIPTION")
+  cm <- codemeta_description(descr, id = id)
   cm$fileSize <- guess_fileSize(path)
   cm$citation <- guess_citation(path)
 
-  jsonlite::write_json(cm, file, pretty = TRUE, auto_unbox = TRUE)
+  cm <- drop_null(cm)
+
+  if(!is.null(file))
+    jsonlite::write_json(cm, file, pretty = TRUE, auto_unbox = TRUE)
+
   invisible(cm)
 }

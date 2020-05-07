@@ -55,11 +55,12 @@ get_sameAs <- function(provider, remote_provider, identifier) {
 
 parse_depends <- function(deps, verbose = FALSE) {
 
-  purrr::pmap(
-    list(deps$package, deps$version, deps$remote_provider),
-    format_depend,
-    verbose = verbose
-  )
+  out <- vector("list", length(deps$package))
+  for(i in seq_along(deps$package)){
+    out[[i]] <- format_depend(deps$package[[i]], deps$version[[i]], deps$remote_provider[[i]], verbose = verbose)
+  }
+  out
+
 }
 
 
@@ -106,6 +107,7 @@ add_remote_to_dep <- function(package, remotes) {
 
 
 # helper to get system dependencies
+#' @importFrom urltools url_encode
 get_sys_links <- function(pkg, description = "", verbose = FALSE) {
   if (verbose) {
     cli::cat_bullet("Getting sysreqs URL from sysreqs API", bullet = "continue")
@@ -113,7 +115,7 @@ get_sys_links <- function(pkg, description = "", verbose = FALSE) {
 
   data <- get_url_rhub("get", unique(c(
     get_rhub_json_names("pkg", pkg),
-    get_rhub_json_names("map", curl::curl_escape(description))
+    get_rhub_json_names("map", urltools::url_encode(description))
   )))
 
   if (verbose) {
@@ -136,11 +138,8 @@ format_sys_req <- function(url) {
   list("@type" = "SoftwareApplication", identifier = url)
 }
 
-#' @importFrom pingr is_online
 parse_sys_reqs <- function(pkg, sys_reqs, verbose = FALSE) {
 
-  if(!pingr::is_online()) return(NULL)
-
   urls <- get_sys_links(pkg, description = sys_reqs, verbose)
-  purrr::map(urls, format_sys_req)
+  lapply(urls, format_sys_req)
 }

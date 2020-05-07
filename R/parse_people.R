@@ -57,16 +57,15 @@ people_with_role <- function(people, role = "aut") {
 
 # locate_role ------------------------------------------------------------------
 # role = NA returns TRUE for all people without a role
-#' @importFrom purrr map_lgl
 locate_role <- function(people, role = "aut") {
 
   if (is.na(role)) {
 
-    purrr::map_lgl(people, person_has_no_role)
+    vapply(people, person_has_no_role, logical(1L))
 
   } else {
 
-    purrr::map_lgl(people, person_has_role, role = role)
+    vapply(people, person_has_role, logical(1L), role = role)
   }
 }
 
