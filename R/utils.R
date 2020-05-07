@@ -67,79 +67,7 @@ is_IRI <- function(string) {
   grepl("^http[s]?://", string)
 }
 
-# uses_git ---------------------------------------------------------------------
-# from usethis cf https://github.com/r-lib/usethis/blob/2abb0422a97808cc573fa5900a8efcfed4c2d5b4/R/git.R#L68
-# this is GPL-3 code
-# now with gert not git2r
-uses_git <- function(path = usethis::proj_get()) {
 
-  !is.null(tryCatch(gert::git_find(path), error = function(e){NULL}))
-}
-
-# from usethis cf https://github.com/r-lib/usethis/blob/4fb556788d2588facaaa8560242d2c83f2261d6e/R/helpers.R#L55
-# this is GPL-3 code
-render_template <- function(template, data = list(), package = "codemetar") {
-
-  template_path <- find_template(template, package = package)
-
-  strsplit(whisker::whisker.render(readLines(template_path), data), "\n")[[1]]
-}
-
-# find_template-----------------------------------------------------------------
-# from usethis cf https://github.com/r-lib/usethis/blob/4fb556788d2588facaaa8560242d2c83f2261d6e/R/helpers.R#L60
-# this is GPL-3 code
-find_template <- function(template_name, package = "usethis") {
-
-  package_file(package, "templates", template_name)
-}
-
-# get_url_status_code ----------------------------------------------------------
-get_url_status_code <- function(url) {
-
-  if (is.null(url) || is.na(url)) {
-
-    return(NULL)
-  }
-
-  result <- try(crul::HttpClient$new(url)$get(), silent = TRUE)
-
-  message <- if (inherits(result,'try-error')) {
-
-    "No connection was possible"
-
-  } else if ((code <- result$status_code) == 200) {
-
-    "All good"
-
-  } else {
-
-    paste("Error code:", code)
-  }
-
-  data.frame(message = message, url = url)
-}
-
-# check_urls -------------------------------------------------------------------
-check_urls <- function(urls) {
-
-  if (!pingr::is_online()) {
-
-    return("")
-  }
-
-  messages <- do.call(rbind, lapply(urls, get_url_status_code))
-
-  failed <- (messages$message != "All good")
-
-  if (any(failed)) {
-
-    paste("Problematic URLs\n", apply(messages[failed, ], 1, toString))
-
-  } else {
-
-    ""
-  }
-}
 
 # whether_provider_badge -------------------------------------------------------
 whether_provider_badge <- function(badges, provider_name) {

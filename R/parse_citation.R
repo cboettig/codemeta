@@ -3,12 +3,8 @@
 
 parse_citation <- function(bib) {
 
-  type <- bib$bibtype %>%
-    tools::toTitleCase() %>%
-    bibentry_to_schema_field()
-
+  type <- bibentry_to_schema_field(tools::toTitleCase(bib$bibtype))
   author <- parse_people(bib$author, new_codemeta())$author
-
   doi <- bib$doi
 
   ## determine "@id" / "sameAs" from doi, converting doi to string representing

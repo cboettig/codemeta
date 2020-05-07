@@ -61,20 +61,16 @@ additional_codemeta_terms <- function() {
 
 # codemeta_description ---------------------------------------------------------
 # Can add to an existing codemeta document
-codemeta_description <- function(file, id = NULL, codemeta = new_codemeta(),
+codemeta_description <- function(file,
+                                 id = NULL,
                                  verbose = FALSE) {
 
-  if (! file.exists(file)) {
 
-    return(codemeta)
-  }
-
+  codemeta <- new_codemeta()
   descr <- desc::desc(file)
 
   # Store the package name in its own variable as it is used more than once
   package_name <- descr$get("Package")
-
-  ## FIXME define an S3 class based on the codemeta list of lists?
 
   if (is.null(id)) {
     id <- package_name
@@ -95,12 +91,9 @@ codemeta_description <- function(file, id = NULL, codemeta = new_codemeta(),
     codemeta$issueTracker <- issue_tracker
   }
 
-  ## According to crosswalk, codemeta$dateModified and
-  ## codemeta$dateCreated are not crosswalked in DESCRIPTION
-  codemeta$datePublished <- NULL
+  ## codemeta$datePublished <- NULL
 
   codemeta$license <- spdx_license(descr$get("License"))
-
   codemeta$version <- as.character(descr$get_version())
 
   ## add progr. language related terms: programmingLanguage, runtimePlatform
@@ -124,6 +117,8 @@ codemeta_description <- function(file, id = NULL, codemeta = new_codemeta(),
 }
 
 # add_repository_terms ---------------------------------------------------------
+
+#' @importFrom urltools domain fragment
 add_repository_terms <- function(codemeta, descr) {
 
   ## Get URLs
