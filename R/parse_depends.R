@@ -109,18 +109,12 @@ add_remote_to_dep <- function(package, remotes) {
 # helper to get system dependencies
 #' @importFrom urltools url_encode
 get_sys_links <- function(pkg, description = "", verbose = FALSE) {
-  if (verbose) {
-    cli::cat_bullet("Getting sysreqs URL from sysreqs API", bullet = "continue")
-  }
 
   data <- get_url_rhub("get", unique(c(
     get_rhub_json_names("pkg", pkg),
     get_rhub_json_names("map", urltools::url_encode(description))
   )))
 
-  if (verbose) {
-    cli::cat_bullet("Got sysreqs URL from sysreqs API!", bullet = "tick")
-  }
 
   data
 }

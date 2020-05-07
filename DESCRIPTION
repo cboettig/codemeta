@@ -67,7 +67,6 @@ Depends:
 Imports: 
     desc,
     jsonlite (>= 1.6),
-    cli,
     urltools,
     methods,
     utils
