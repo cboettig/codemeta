@@ -1,11 +1,11 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "identifier": "metar",
+  "identifier": "minimeta",
   "description": "The 'Codemeta' Project defines a 'JSON-LD' format\n    for describing software metadata, as detailed at\n    <https://codemeta.github.io>. This package provides core utilities\n    to generate this metadata with a minimum of dependencies.",
-  "name": "metar: A Smaller CodeMetar",
-  "codeRepository": "https://github.com/cboettig/metar",
-  "issueTracker": "https://github.com/cboettig/metar/issues",
+  "name": "minimeta: A Smaller 'codemetar' Package",
+  "codeRepository": "https://github.com/cboettig/minimeta",
+  "issueTracker": "https://github.com/cboettig/minimeta/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "0.1.0",
   "programmingLanguage": {
@@ -13,7 +13,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.0 (2020-04-24)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "author": [
     {
       "@type": "Person",
@@ -199,18 +199,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "cli",
-      "name": "cli",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=cli"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "urltools",
       "name": "urltools",
       "provider": {
@@ -234,5 +222,5 @@
   ],
   "isPartOf": "https://ropensci.org",
   "keywords": ["metadata", "codemeta", "ropensci", "citation", "credit", "linked-data"],
-  "fileSize": "50.214KB"
+  "fileSize": "44.747KB"
 }

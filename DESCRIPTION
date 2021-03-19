@@ -1,6 +1,6 @@
 Type: Package
-Package: metar
-Title: A Smaller CodeMetar
+Package: minimeta
+Title: A Smaller 'codemetar' Package
 Version: 0.1.0
 Authors@R: 
     c(person(given = "Carl",
@@ -60,8 +60,8 @@ Description: The 'Codemeta' Project defines a 'JSON-LD' format
     <https://codemeta.github.io>. This package provides core utilities
     to generate this metadata with a minimum of dependencies.
 License: GPL-3
-URL: https://github.com/cboettig/metar
-BugReports: https://github.com/cboettig/metar/issues
+URL: https://github.com/cboettig/minimeta
+BugReports: https://github.com/cboettig/minimeta/issues
 Depends: 
     R (>= 3.0.0)
 Imports: 
@@ -79,7 +79,7 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-keywords: metadata, codemeta, ropensci, citation,
     credit, linked-data

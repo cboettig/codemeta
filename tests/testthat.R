@@ -1,4 +1,4 @@
 library(testthat)
-library(metar)
+library(minimeta)
 
-test_check("metar")
+test_check("minimeta")

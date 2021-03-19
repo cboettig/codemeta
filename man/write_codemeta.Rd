@@ -11,7 +11,7 @@ write_codemeta(path = ".", id = NULL, file = "codemeta.json")
 
 \item{id}{identifier for the package (e.g. a DOI, as URL)}
 
-\item{file}{output file location, should be called \code{codemeta.json}. Set to NULL to supress writing file.}
+\item{file}{output file location, should be called \code{codemeta.json}.}
 }
 \value{
 a codemeta list object (invisbly) and write out the codemeta.json file
@@ -20,7 +20,13 @@ a codemeta list object (invisbly) and write out the codemeta.json file
 write_codemeta
 }
 \examples{
-\dontrun{
-write_codemeta()
+\donttest{
+
+ # 'path' and 'out' here are for illustrative use only.
+ # typical use in a package is simply `wite_codemeta()` with no arguments
+
+ path <- system.file("", package="minimeta")
+ out <- tempfile(fileext =".json")
+ write_codemeta(path, file = out)
 }
 }
