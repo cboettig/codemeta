@@ -1,38 +1,38 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# minimeta
+# codemeta
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/cboettig/minimeta/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/minimeta/actions)
+status](https://github.com/cboettig/codemeta/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/codemeta/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/cboettig/minimeta/branch/master/graph/badge.svg)](https://codecov.io/gh/cboettig/minimeta?branch=master)
+coverage](https://codecov.io/gh/cboettig/codemeta/branch/master/graph/badge.svg)](https://codecov.io/gh/cboettig/codemeta?branch=master)
 <!-- badges: end -->
 
-`minimeta` is a smaller, simpler `codemetar`.
+`codemeta` is a smaller, simpler `codemetar`.
 
 ## Installation
 
-You can install the released version of minimeta from
+You can install the released version of codemeta from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("minimeta")
+install.packages("codemeta")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cboettig/minimeta")
+devtools::install_github("cboettig/codemeta")
 ```
 
 ## Example
 
 ``` r
-minimeta::write_codemeta()
+codemeta::write_codemeta()
 ```
 
 ## Dependencies
