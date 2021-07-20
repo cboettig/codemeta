@@ -117,8 +117,6 @@ codemeta_description <- function(file,
 }
 
 # add_repository_terms ---------------------------------------------------------
-
-#' @importFrom urltools domain fragment
 add_repository_terms <- function(codemeta, descr) {
 
   ## Get URLs
@@ -134,18 +132,14 @@ add_repository_terms <- function(codemeta, descr) {
     } else {
 
       # try to identify a code repo
-      actual_code_repo <- code_repo[urltools::domain(code_repo) %in%
-                                      source_code_domains()][1]
+      i <- which(vapply(source_code_domains(), grepl, logical(1L), code_repo))
+      actual_code_repo <- code_repo[i][1]
 
       # otherwise take the first URL arbitrarily
       if (is.na(actual_code_repo)) {
         codemeta$codeRepository <- code_repo[1]
       } else {
-        # no direct link to README please
-        urltools::fragment(actual_code_repo) <- NULL
-
         codemeta$codeRepository <- actual_code_repo
-
       }
 
       # add other URLs as related links
@@ -225,8 +219,7 @@ add_software_terms <- function(codemeta, descr, verbose = FALSE) {
 
   codemeta$softwareRequirements <- c(
     parse_depends(requirements, verbose = verbose),
-    parse_sys_reqs(descr$get("Package"), descr$get("SystemRequirements"),
-                   verbose)
+    descr$get("SystemRequirements")
   )
 
   codemeta

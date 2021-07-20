@@ -106,34 +106,4 @@ add_remote_to_dep <- function(package, remotes) {
 }
 
 
-# helper to get system dependencies
-#' @importFrom urltools url_encode
-get_sys_links <- function(pkg, description = "", verbose = FALSE) {
-
-  data <- get_url_rhub("get", unique(c(
-    get_rhub_json_names("pkg", pkg),
-    get_rhub_json_names("map", urltools::url_encode(description))
-  )))
-
-
-  data
-}
-
-get_rhub_json_names <- function(a, b) {
-
-  sapply(
-    X = jsonlite::fromJSON(get_url_rhub(a, b), simplifyVector = FALSE),
-    FUN = names
-  )
-}
-
-format_sys_req <- function(url) {
-
-  list("@type" = "SoftwareApplication", identifier = url)
-}
-
-parse_sys_reqs <- function(pkg, sys_reqs, verbose = FALSE) {
-
-  urls <- get_sys_links(pkg, description = sys_reqs, verbose)
-  lapply(urls, format_sys_req)
-}
+## minimeta does not try to parse sysreqs with rhub, merely uses text from DESCRIPTION

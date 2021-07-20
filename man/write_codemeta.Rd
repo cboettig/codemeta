@@ -25,7 +25,7 @@ write_codemeta
  # 'path' and 'out' here are for illustrative use only.
  # typical use in a package is simply `wite_codemeta()` with no arguments
 
- path <- system.file("", package="minimeta")
+ path <- system.file("", package="codemeta")
  out <- tempfile(fileext =".json")
  write_codemeta(path, file = out)
 }

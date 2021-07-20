@@ -1,4 +1,4 @@
 library(testthat)
-library(minimeta)
+library(codemeta)
 
-test_check("minimeta")
+test_check("codemeta")

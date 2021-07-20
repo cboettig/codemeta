@@ -12,11 +12,11 @@
 #'  # 'path' and 'out' here are for illustrative use only.
 #'  # typical use in a package is simply `wite_codemeta()` with no arguments
 #'
-#'  path <- system.file("", package="minimeta")
+#'  path <- system.file("", package="codemeta")
 #'  out <- tempfile(fileext =".json")
 #'  write_codemeta(path, file = out)
 #' }
-#' @importFrom jsonlite read_json
+#' @importFrom jsonlite write_json
 write_codemeta <- function(path = ".", id = NULL, file = "codemeta.json"){
 
   ## get information from DESCRIPTION

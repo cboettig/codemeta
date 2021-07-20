@@ -10,7 +10,7 @@ spdx_license <- function(x) {
     gsub("(.*) \\+ file (LICENSE|LICENCE)$", "\\1", components[[1]])
 
   cran_to_spdx <-
-    read.csv(system.file("extdata/cran-to-spdx.csv", package = "minimeta"))
+    read.csv(system.file("extdata/cran-to-spdx.csv", package = "codemeta"))
   spdx <- cran_to_spdx$SPDX[cran_to_spdx$CRAN == license]
 
   ## Stick with parsed term if we failed to match

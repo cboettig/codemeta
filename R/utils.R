@@ -132,34 +132,6 @@ is_json_or_character <- function(x) {
   is(x, "json") || is.character(x)
 }
 
-# to_json_if -------------------------------------------------------------------
-
-#' Convert to JSON if Condition is Met
-#'
-#' @param condition expression to be evaluated
-#' @param x object to be converted to JSON
-#' @param \dots further arguments passed to [jsonlite::toJSON()]
-#' @importFrom jsonlite toJSON
-#' @noRd
-to_json_if <- function(condition, x, ...) {
-
-  call_if(condition, x, FUN = jsonlite::toJSON, ...)
-}
-
-# from_json_if -----------------------------------------------------------------
-
-#' Convert from JSON if Condition is Met
-#'
-#' @param condition expression to be evaluated
-#' @param x object passed to [jsonlite::fromJSON()] if
-#'   `condition` is met
-#' @param \dots further arguments passed to [jsonlite::fromJSON()]
-#' @importFrom jsonlite fromJSON
-#' @noRd
-from_json_if <- function(condition, x, ...) {
-
-  call_if(condition, x, jsonlite::fromJSON, ...)
-}
 
 # call_if ----------------------------------------------------------------------
 
