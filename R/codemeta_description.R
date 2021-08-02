@@ -131,8 +131,8 @@ add_repository_terms <- function(codemeta, descr) {
 
     } else {
 
-      # try to identify a code repo
-      i <- which(vapply(source_code_domains(), grepl, logical(1L), code_repo))
+      # try to identify a code repo, select the first match
+      i <- which(lapply(source_code_domains(), grepl, code_repo)[[1]])
       actual_code_repo <- code_repo[i][1]
 
       # otherwise take the first URL arbitrarily
