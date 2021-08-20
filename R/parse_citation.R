@@ -112,37 +112,30 @@ parse_journal <- function(bib) {
 # guess_citation ---------------------------------------------------------------
 
 ## guessCitation referencePublication or citation?
-## Handle installed package by name, source pkg by path (inst/CITATION)
+## Handle source and installed pkgs by path (inst/CITATION or CITATION)
 
-#' @importFrom utils readCitationFile citation
-guess_citation <- function(pkg) {
+#' @importFrom utils readCitationFile
+guess_citation <- function(path) {
 
-  root <- get_root_path(pkg)
+  citation_path <- file.path(path, "inst/CITATION")
 
-  citation_file <- file.path(root, "inst/CITATION")
+  citation_exists <- file.exists(citation_path)
 
-  citation_file_exists <- file.exists(citation_file)
+  # try CITATION if inst/CITATION does not exist
+  if (! citation_exists) {
+    citation_path <- file.path(path, "CITATION")
 
-  package_is_installed <- is_installed(pkg)
-
-  # Return NULL if there is no citation file and if pkg is not installed
-  if (! citation_file_exists && ! package_is_installed) {
-
-    return(NULL)
+    citation_exists <- file.exists(citation_path)
   }
 
-  # Read bib entry either from the citation file or from the installed package
-  bib <- if (citation_file_exists) {
+  # return NULL if CITATION does not exist either
+  if (! citation_exists) return(NULL)
 
-    # Set the Encoding as metadata if given in the description
-    description <- desc::desc(file.path(root, "DESCRIPTION"))
+  # Read DESCRIPTION to determine encoding
+  description <- desc::desc(file.path(path, "DESCRIPTION"))
 
-    read_citation_with_encoding(citation_file, description$get("Encoding"))
-
-  } else if (package_is_installed) {
-
-    suppressWarnings(utils::citation(pkg)) # don't worry if no date
-  }
+  # Read and parse CITATION
+  bib <- read_citation_with_encoding(citation_path, description$get("Encoding"))
 
   lapply(bib, parse_citation)
 
