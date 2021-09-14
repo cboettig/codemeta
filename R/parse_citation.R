@@ -131,11 +131,11 @@ guess_citation <- function(path) {
   # return NULL if CITATION does not exist either
   if (! citation_exists) return(NULL)
 
-  # Read DESCRIPTION to determine encoding
-  description <- desc::desc(file.path(path, "DESCRIPTION"))
+  # Read DESCRIPTION to determine meta
+  meta <- parse_package_meta(file.path(path, "DESCRIPTION"))
 
   # Read and parse CITATION
-  bib <- read_citation_with_encoding(citation_path, description$get("Encoding"))
+  bib <- read_citation_with_encoding(citation_path, meta)
 
   lapply(bib, parse_citation)
 
@@ -143,15 +143,13 @@ guess_citation <- function(path) {
 }
 
 # read_citation_with_encoding --------------------------------------------------
-read_citation_with_encoding <- function(citation_file, encoding = NA)
-{
-  meta <- if (!is.na(encoding)) {
-    list(Encoding = encoding)
+read_citation_with_encoding <- function(citation_file,
+                                        meta = list(Encoding = "UTF-8")) {
 
-  } # else NULL implicitly
-
-  ## try to read citation file
-  citation <- try(utils::readCitationFile(citation_file, meta = meta), silent = TRUE)
+    ## try to read citation file
+  citation <- try(utils::readCitationFile(citation_file,
+                                          meta = meta),
+                  silent = TRUE)
 
   ## if this fails for a very specific reason, namely a line similar to
   ## citation(auto = meta), this line gets removed and we continue working
@@ -162,7 +160,7 @@ read_citation_with_encoding <- function(citation_file, encoding = NA)
       temp_citation <-
         readLines(
           con = citation_file,
-          encoding = if (!is.na(encoding)) encoding else "unknown")
+          encoding = if (!is.na(meta$Encoding)) meta$Encoding else "unknown")
 
       ## >> (2) remove citation(auto = meta)
       repl_id <- which(grepl(
@@ -181,4 +179,26 @@ read_citation_with_encoding <- function(citation_file, encoding = NA)
   }
 
   return(citation)
+}
+
+
+#' Parse and clean data from DESCRIPTION to create metadata
+#' @noRd
+parse_package_meta <- function(desc_path) {
+  pkg <- desc::desc(desc_path)
+  pkg$coerce_authors_at_r()
+  # Extract package data
+  meta <- pkg$get(desc::cran_valid_fields)
+
+  # Clean missing and drop empty fields
+  meta <- drop_null(lapply(meta, clean_str))
+
+  # Check encoding
+  if (!is.null(meta$Encoding)) {
+    meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  } else {
+    meta$Encoding <- "UTF-8"
+  }
+
+  meta
 }

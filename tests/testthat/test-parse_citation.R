@@ -3,7 +3,7 @@ test_that("We can parse_citation",{
   f <- test_path("test_examples", "RNeXML", "CITATION_")
   bib <- readCitationFile(f)
   schema <- lapply(bib, parse_citation)
-  expect_is(schema, "list")
+  expect_type(schema, "list")
   expect_equal(schema[[1]][["@type"]], "ScholarlyArticle")
 
 })
@@ -38,4 +38,37 @@ test_that("We can parse citations", {
   ## not a package path returns null and doesn't error
   gc_null <- guess_citation(file.path(examples_path, "not-a-package"))
   expect_null(gc_null)
+})
+
+test_that("We can parse meta tags", {
+  c <- test_path("test_examples", "rmarkdown", "CITATION_")
+  # Need that file to completely parse all the tags
+  d <- test_path("test_examples", "rmarkdown", "DESCRIPTION_codemeta_from_cran_")
+
+  # Read DESCRIPTION to determine meta
+  meta <- parse_package_meta(d)
+
+  # Read and parse CITATION
+  bib <- read_citation_with_encoding(c, meta)
+  expect_s3_class(bib, "citation")
+
+  bibs <- lapply(bib, parse_citation)
+  expect_type(bibs, "list")
+  expect_snapshot_output({
+    print("rmarkdown citation parsed with codemeta DESCRIPTION")
+    print(bibs[1])
+  })
+})
+
+
+test_that("We can parse citations with citation(auto = meta)", {
+  c <- test_path("test_examples", "citation_auto", "CITATION_")
+  bib <- read_citation_with_encoding(c)
+
+  bibs <- lapply(bib, parse_citation)
+  expect_type(bibs, "list")
+  expect_snapshot_output({
+    print("rmarkdown citation parsed with codemeta DESCRIPTION")
+    print(bibs[1])
+  })
 })

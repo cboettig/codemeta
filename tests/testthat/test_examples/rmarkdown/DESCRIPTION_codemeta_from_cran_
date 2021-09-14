@@ -1,7 +1,7 @@
 Type: Package
 Package: codemeta
 Title: A Smaller 'codemetar' Package
-Version: 0.1.1
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Carl",
              family = "Boettiger",
@@ -54,22 +54,29 @@ Description: The 'Codemeta' Project defines a 'JSON-LD' format
 License: GPL-3
 URL: https://github.com/cboettig/codemeta
 BugReports: https://github.com/cboettig/codemeta/issues
-Depends: 
-    R (>= 3.0.0)
-Imports: 
-    desc,
-    jsonlite (>= 1.6),
-    methods,
-    utils
-Suggests: 
-    covr,
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
+Depends: R (>= 3.0.0)
+Imports: desc, jsonlite (>= 1.6), methods, utils
+Suggests: covr, knitr, rmarkdown, testthat (>= 2.1.0)
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.1.1
 X-schema.org-isPartOf: https://ropensci.org
-X-schema.org-keywords: metadata, codemeta, ropensci, citation,
-    credit, linked-data
-Roxygen: list(markdown = TRUE)
-Config/testthat/edition: 3
+X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit,
+        linked-data
+NeedsCompilation: no
+Packaged: 2021-07-20 23:29:02 UTC; cboettig
+Author: Carl Boettiger [aut, cre, cph]
+    (<https://orcid.org/0000-0002-1642-628X>),
+  Maëlle Salmon [ctb, aut] (<https://orcid.org/0000-0002-2815-0399>),
+  Katrin Leinweber [ctb] (<https://orcid.org/0000-0001-5135-5758>),
+  Noam Ross [ctb] (<https://orcid.org/0000-0002-2136-0000>),
+  Arfon Smith [ctb],
+  Jeroen Ooms [ctb] (<https://orcid.org/0000-0002-4035-0289>),
+  Sebastian Meyer [ctb] (<https://orcid.org/0000-0002-1791-9449>),
+  Michael Rustler [ctb] (<https://orcid.org/0000-0003-0647-7726>),
+  Hauke Sonnenberg [ctb] (<https://orcid.org/0000-0001-9134-2871>),
+  Sebastian Kreutzer [ctb] (<https://orcid.org/0000-0002-0734-2199>),
+  rOpenSci [fnd] (https://ropensci.org/)
+Maintainer: Carl Boettiger <cboettig@gmail.com>
+Repository: CRAN
+Date/Publication: 2021-07-22 06:40:02 UTC
+Built: R 4.1.1; ; 2021-09-03 15:29:48 UTC; windows
