@@ -135,7 +135,7 @@ guess_citation <- function(path) {
   meta <- parse_package_meta(file.path(path, "DESCRIPTION"))
 
   # Read and parse CITATION
-  bib <- read_citation_with_encoding(citation_path, meta)
+  bib <- utils::readCitationFile(citation_path, meta)
 
   lapply(bib, parse_citation)
 
