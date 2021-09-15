@@ -142,46 +142,6 @@ guess_citation <- function(path) {
   ## drop self-citation file?
 }
 
-# read_citation_with_encoding --------------------------------------------------
-read_citation_with_encoding <- function(citation_file,
-                                        meta = list(Encoding = "UTF-8")) {
-
-    ## try to read citation file
-  citation <- try(utils::readCitationFile(citation_file,
-                                          meta = meta),
-                  silent = TRUE)
-
-  ## if this fails for a very specific reason, namely a line similar to
-  ## citation(auto = meta), this line gets removed and we continue working
-  ## with a temporary CITATION file
-  if(inherits(citation, "try-error")){
-    if(grepl(pattern = "Error in.+?auto", citation[1])){
-      ## >> (1) read original CITATION file
-      temp_citation <-
-        readLines(
-          con = citation_file,
-          encoding = if (!is.na(meta$Encoding)) meta$Encoding else "unknown")
-
-      ## >> (2) remove citation(auto = meta)
-      repl_id <- which(grepl(
-        pattern = "citation\\s*\\(auto\\s*=\\s*meta\\s*\\)",
-        x = temp_citation
-        ))
-      temp_citation <- temp_citation[-repl_id]
-
-      ## >> (3) write new temporary citation file
-      temp_file <- tempfile()
-      writeLines(temp_citation, temp_file)
-
-      ## >> (4) apply extraction
-      citation <- utils::readCitationFile(temp_file, meta = meta)
-    }
-  }
-
-  return(citation)
-}
-
-
 #' Parse and clean data from DESCRIPTION to create metadata
 #' @noRd
 parse_package_meta <- function(desc_path) {
