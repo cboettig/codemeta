@@ -46,9 +46,3 @@ get_url_github <- function(...) {
 
   paste("https://github.com", ..., sep = "/")
 }
-
-# get_url_rhub -----------------------------------------------------------------
-get_url_rhub <- function(a, b) {
-
-  sprintf("https://sysreqs.r-hub.io/%s/%s", a, b)
-}

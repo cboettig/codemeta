@@ -1,0 +1,44 @@
+Package: hrbraddins
+Type: Package
+Title: Moar Addins for RStudio
+Version: 0.4.0
+Date: 2019-07-29
+Author: Bob Rudis (bob@rud.is)
+Maintainer: Bob Rudis <bob@rud.is>
+Description: Provides additional addins for RStudio.
+URL: https://gitlab.com/hrbrmstr/hrbraddins
+BugReports: https://gitlab.com/hrbrmstr/hrbraddins/issues
+License: MIT + file LICENSE
+Suggests: 
+  testthat,
+  covr
+Encoding: UTF-8
+Depends:
+  R (>= 3.2.0)
+Imports:
+  rstudioapi (>= 0.5),
+  shiny (>= 0.13),
+  miniUI (>= 0.1.1),
+  stringi,
+  utils,
+  magick,
+  pdftools,
+  rmarkdown,
+  urltools,
+  gistr,
+  knitr,
+  twitteR,
+  rtweet,
+  fs,
+  dplyr,
+  tidyr,
+  uuid,
+  tinytest,
+  rprojroot,
+  memoise,
+  tools,
+  httr,
+  janitor,
+  purrr,
+  tibble
+RoxygenNote: 6.1.1
