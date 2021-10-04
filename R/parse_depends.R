@@ -106,4 +106,4 @@ add_remote_to_dep <- function(package, remotes) {
 }
 
 
-## minimeta does not try to parse sysreqs with rhub, merely uses text from DESCRIPTION
+## codemeta does not try to parse sysreqs with rhub, merely uses text from DESCRIPTION
