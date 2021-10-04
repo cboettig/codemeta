@@ -70,7 +70,7 @@ test_that("We can parse citations with citation(auto = meta)", {
   # Read DESCRIPTION to determine meta
   meta <- parse_package_meta(d)
   bib <- utils::readCitationFile(c, meta)
-  expect_true(length(bib) == 3)
+  expect_length(bib, 3)
 
   expect_s3_class(bib, "citation")
 
