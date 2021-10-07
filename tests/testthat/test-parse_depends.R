@@ -5,7 +5,7 @@ test_that("Test the various cases for dependencies", {
   expect_error(format_depend(NULL))
   a <- format_depend(package = "a4",
                      version = "*",
-                     remote_provider = "")  # BIOC provider
+                     remote_provider = "")  # Bioconductor provider
   expect_equal(a$sameAs, "https://bioconductor.org/packages/release/bioc/html/a4.html")
 
 
@@ -45,7 +45,7 @@ test_that("get_sameAs() works as expected", {
   expect_null(get_sameAs(list(name = "unknown"), "", "my_package"))
 
   provider_1 <- list(name = "Comprehensive R Archive Network (CRAN)")
-  provider_2 <- list(name = "BioConductor")
+  provider_2 <- list(name = "Bioconductor")
 
   url_1 <- "https://CRAN.R-project.org/package=my_package"
   url_2 <- "https://bioconductor.org/packages/release/bioc/html/my_package.html"

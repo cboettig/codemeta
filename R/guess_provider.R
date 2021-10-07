@@ -15,7 +15,7 @@ guess_provider <- function(pkg, verbose = FALSE) {
 
     new_codemeta_organization(
       url = "https://www.bioconductor.org",
-      name = "BioConductor"
+      name = "Bioconductor"
     )
 
   } else {
@@ -27,20 +27,28 @@ guess_provider <- function(pkg, verbose = FALSE) {
 # available_source_packages ----------------------------------------------------
 codemeta_cache_env <- new.env(parent = emptyenv())
 
-available_source_packages <- function(repo = c("CRAN", "BIOC")) {
+available_source_packages <- function(
+  repo = c("CRAN", "Bioconductor"),
+  verbose = FALSE
+) {
 
   url <-
     switch(
       repo,
-      CRAN = "https://cloud.r-project.org",
-      BIOC = "https://www.bioconductor.org/packages/release/bioc",
-      stop("Only CRAN and BIOC repos are supported.")
+      CRAN         = "https://cloud.r-project.org",
+      Bioconductor = "https://www.bioconductor.org/packages/release/bioc",
+      stop("Only CRAN and Bioconductor repos are supported.")
     )
 
   contrib_url <- utils::contrib.url(url, "source")
 
   if (is.null(codemeta_cache_env[[repo]])) {
+
+    if (verbose) message(paste("Getting", repo, "metadata..."))
+
     codemeta_cache_env[[repo]] <- utils::available.packages(contrib_url)
+
+    if (verbose) message(paste("Got", repo, "metadata!"))
   }
 
   suppressWarnings(codemeta_cache_env[[repo]])
@@ -50,13 +58,16 @@ available_source_packages <- function(repo = c("CRAN", "BIOC")) {
 # is_cran_package --------------------------------------------------------------
 is_cran_package <- function(pkg, verbose = FALSE) {
 
-  is_in_package_info(pkg, available_source_packages("CRAN"))
+  is_in_package_info(pkg, available_source_packages("CRAN", verbose = verbose))
 }
 
 # is_bioconductor_package ------------------------------------------------------
 is_bioconductor_package <- function(pkg, verbose = FALSE) {
 
-  is_in_package_info(pkg, available_source_packages("BIOC"))
+  is_in_package_info(
+    pkg,
+    available_source_packages("Bioconductor", verbose = verbose)
+  )
 }
 
 # is_in_package_info -----------------------------------------------------------
