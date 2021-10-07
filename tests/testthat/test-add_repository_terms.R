@@ -18,12 +18,13 @@ test_that("add_repository_terms works", {
 test_that("add_repository_terms updates the codeRepository URL", {
   skip_on_cran()
   skip_if_offline()
+
   cm <- new_codemeta()
   cm$codeRepository <- "lalala"
   desc_path <- test_path("test_examples", "DESCRIPTION_twomaintainers")
   descr <- desc::desc(desc_path)
-
   cm <- add_repository_terms(cm, descr = descr)
+
   expect_equal(cm$codeRepository, "https://github.com/ropensci/codemetar")
   expect_true("https://ropensci.github.io/codemetar" %in% cm$relatedLink)
 })
@@ -57,5 +58,17 @@ test_that("add_repository_terms works with non-GitHub-repository", {
       codemeta = new_codemeta(),
       descr = desc::desc(desc_path)
     )
+
   expect_equal(cm$codeRepository, "https://git.rud.is/hrbrmstr/hrbragg")
+  expect_true("https://rud.is/b" %in% cm$relatedLink)
+})
+
+test_that("add_repository_terms removes URI fragment from codeRepository URL", {
+  skip_on_cran()
+  skip_if_offline()
+
+  desc_path <- test_path("test_examples", "cli", "DESCRIPTION")
+  cm <- codemeta_description(desc_path)
+  expect_equal(cm$codeRepository, "https://github.com/r-lib/cli")
+  expect_true("https://cli.r-lib.org" %in% cm$relatedLink)
 })
