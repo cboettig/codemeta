@@ -127,7 +127,7 @@ add_repository_terms <- function(codemeta, descr) {
     if (length(code_repo) == 1) {
 
       # only one, easy
-      codemeta$codeRepository <- code_repo
+      actual_code_repo <- code_repo
 
     } else {
 
@@ -138,11 +138,7 @@ add_repository_terms <- function(codemeta, descr) {
       actual_code_repo <- code_repo[i][1]
 
       # otherwise take the first URL arbitrarily
-      if (is.na(actual_code_repo)) {
-        codemeta$codeRepository <- code_repo[1]
-      } else {
-        codemeta$codeRepository <- actual_code_repo
-      }
+      if (is.na(actual_code_repo)) actual_code_repo <- code_repo[1]
 
       # add other URLs as related links
       codemeta$relatedLink <- unique(c(
@@ -150,6 +146,8 @@ add_repository_terms <- function(codemeta, descr) {
         code_repo[code_repo != actual_code_repo]
       ))
     }
+
+    codemeta$codeRepository <- gsub("#(.*)$", "", actual_code_repo)
   }
 
   codemeta

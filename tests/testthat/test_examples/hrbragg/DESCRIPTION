@@ -19,7 +19,7 @@ Description: The 'ragg', 'systemfonts', and 'textshaping' packages make it
     the rich typography features in modern fonts. Fonts, themes, and utilities
     are provided to create 'ggplot2' plots intended for rendering on 'ragg'
     graphics devices.
-URL: https://git.rud.is/hrbrmstr/hrbragg
+URL: https://git.rud.is/hrbrmstr/hrbragg, https://rud.is/b
 BugReports: https://git.rud.is/hrbrmstr/hrbragg/issues
 Encoding: UTF-8
 Copyright: file inst/COPYRIGHTS
