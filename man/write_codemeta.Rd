@@ -4,7 +4,12 @@
 \alias{write_codemeta}
 \title{write_codemeta}
 \usage{
-write_codemeta(path = ".", id = NULL, file = "codemeta.json")
+write_codemeta(
+  path = ".",
+  id = NULL,
+  file = "codemeta.json",
+  verbose = getOption("verbose", FALSE)
+)
 }
 \arguments{
 \item{path}{path to the package root}
@@ -12,6 +17,9 @@ write_codemeta(path = ".", id = NULL, file = "codemeta.json")
 \item{id}{identifier for the package (e.g. a DOI, as URL)}
 
 \item{file}{output file location, should be called \code{codemeta.json}.}
+
+\item{verbose}{Whether to print messages indicating the progress of internet
+downloads.}
 }
 \value{
 a codemeta list object (invisbly) and write out the codemeta.json file

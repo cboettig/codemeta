@@ -4,6 +4,8 @@
 #' @param path path to the package root
 #' @param id identifier for the package (e.g. a DOI, as URL)
 #' @param file output file location, should be called `codemeta.json`.
+#' @param verbose Whether to print messages indicating the progress of internet
+#'   downloads.
 #' @return a codemeta list object (invisbly) and write out the codemeta.json file
 #' @export
 #' @examples
@@ -17,11 +19,16 @@
 #'  write_codemeta(path, file = out)
 #' }
 #' @importFrom jsonlite write_json
-write_codemeta <- function(path = ".", id = NULL, file = "codemeta.json"){
+write_codemeta <- function(
+  path = ".",
+  id = NULL,
+  file = "codemeta.json",
+  verbose = getOption("verbose", FALSE)
+){
 
   ## get information from DESCRIPTION
   descr <- file.path(path, "DESCRIPTION")
-  cm <- codemeta_description(descr, id = id)
+  cm <- codemeta_description(descr, id = id, verbose = verbose)
   cm$fileSize <- guess_fileSize(path)
   cm$citation <- guess_citation(path)
 
