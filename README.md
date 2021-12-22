@@ -8,7 +8,7 @@
 [![R build
 status](https://github.com/cboettig/codemeta/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/codemeta/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/cboettig/codemeta/branch/master/graph/badge.svg)](https://codecov.io/gh/cboettig/codemeta?branch=master)
+coverage](https://codecov.io/gh/cboettig/codemeta/branch/master/graph/badge.svg)](https://app.codecov.io/gh/cboettig/codemeta?branch=master)
 <!-- badges: end -->
 
 `codemeta` is a smaller, simpler `codemetar`.
