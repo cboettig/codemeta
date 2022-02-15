@@ -41,7 +41,7 @@ test_that("We can parse citations", {
 })
 
 test_that("We can parse meta tags", {
-  skip_on_windows()
+  skip_on_os("windows")
   c <- test_path("test_examples", "rmarkdown", "CITATION_")
   # Need that file to completely parse all the tags
   d <- test_path("test_examples", "rmarkdown", "DESCRIPTION_codemeta_from_cran_")
@@ -63,7 +63,7 @@ test_that("We can parse meta tags", {
 
 
 test_that("We can parse citations with citation(auto = meta)", {
-  skip_on_windows()
+  skip_on_os("windows")
   c <- test_path("test_examples", "citation_auto", "CITATION_")
 
   # Need that file to completely parse all the tags
