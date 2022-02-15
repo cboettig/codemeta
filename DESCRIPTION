@@ -73,3 +73,5 @@ X-schema.org-keywords: metadata, codemeta, ropensci, citation,
     credit, linked-data
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+Remotes:
+    maelle/testthat@try
