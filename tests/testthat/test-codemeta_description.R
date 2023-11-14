@@ -109,3 +109,9 @@ test_that("Clean line control on description", {
   # Snapshot
   expect_snapshot_output(cm$description)
 })
+
+test_that("Can get repo URL from BugReports if appropriate", {
+  desc_path <- test_path("test_examples", "DESCRIPTION_github_link_as_issuetracker")
+  cm <- add_repository_terms(list(), desc::desc(file = desc_path))
+  expect_equal(cm[["codeRepository"]], "https://github.com/r-lib/commonmark")
+})

@@ -120,7 +120,7 @@ codemeta_description <- function(file,
 add_repository_terms <- function(codemeta, descr) {
 
   ## Get URLs
-  code_repo <- descr$get_urls()
+  code_repo <- c(descr$get_field("BugReports", NULL), descr$get_urls())
 
   if (! is.na(code_repo[1])) {
 
@@ -147,7 +147,10 @@ add_repository_terms <- function(codemeta, descr) {
       ))
     }
 
-    codemeta$codeRepository <- gsub("#(.*)$", "", actual_code_repo)
+    codemeta$codeRepository <- gsub(
+      "\\/issues(\\/)?", "",
+      gsub("#(.*)$", "", actual_code_repo)
+      )
   }
 
   codemeta
